@@ -1,0 +1,138 @@
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #bbbbbb;
+  background-color: #003300;
+}
+
+body #alert {
+  margin-left: auto;
+  margin-right: auto;
+  width: 200px;
+}
+
+body #alert p {
+  position: fixed;
+  top: 40px;
+  display: none;
+  background-color: #C3A4C2;
+  color: white;
+  width: 200px;
+  border-radius: 4px;
+  text-align: center;
+  padding: 10px;
+}
+
+body .container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 480px;
+}
+
+body .container #instructions p{
+  width: 55%;
+  float: left;
+}
+
+body .container #board {
+  clear: both;
+  margin-left: auto;
+  margin-right: auto;
+  width: 360px;
+  height: 360px;
+  background-color: black;
+}
+
+body .container #board .row {
+  width: 100%;
+  height: 25%;
+}
+
+body .container #board .row .cell {
+  width: 25%;
+  height: 100%;
+  background-color: #555555;
+  float: left;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  opacity: 0.9;
+  color: white;
+  line-height: 90px;
+  font-size: 4em;
+}
+
+body .container #board .row .cell:hover {
+  opacity: 1;
+  background-color: #777777;
+}
+
+body .container #board .row .cell.active {
+  background-color: #00cc00;
+}
+
+body .container #controls, body .container #result {
+  margin-left: 30px;
+}
+
+body .container #controls {
+  display: inline-block;
+  width: 90%;
+}
+
+body .container #controls .fourth {
+  width: 25%;
+}
+
+body .container #controls .half {
+  width: 50%;
+}
+
+body .container #controls .fourth, body .container #controls .half {
+  float: left;
+  height: 30px;
+}
+
+body .container #controls .fourth #try, body .container #controls .half #try {
+  cursor: pointer;
+  /*padding: 3px;*/
+  background-color: #dddddd;
+  color: black;
+  /*border-radius: 2px;*/
+  text-align: center;
+  height: 10px
+}
+
+body .container #controls .fourth #try:hover, body .container #controls .half #try:hover {
+    opacity: 0.9;
+}
+
+body .container #controls .fourth #letters, body .container #controls .half #letters {
+  font-size: 20px;
+  text-align: center; 
+  margin-top: 10px; 
+}
+
+body .container #controls .fourth #score, body .container #controls .half #score {
+  font-size: 20px;
+  margin-top: 10px; 
+}
+
+body .container #result {
+  clear: both;
+  margin-top: 10px; 
+  height: 60px;
+  max-height:100%;
+  overflow-y:auto;
+}
+
+#words {
+  clear: both;
+  text-align: center;
+  max-height:100%;
+  overflow-y:auto;
+}
+
+.ui-grid-a .ui-block-a { width: 75% }
+.ui-grid-a .ui-block-b { width: 35% }

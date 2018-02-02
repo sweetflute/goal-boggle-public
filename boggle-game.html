@@ -1,0 +1,608 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<title>Game Interface and Performance</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- <link href="css/style.css" rel="stylesheet" />  -->
+<link href="css/boggle.css" rel="stylesheet" /> 
+
+<link rel="stylesheet" href="css/themes/mole.min.css" />
+<link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+<link rel="stylesheet" href="css/jquery.mobile.structure-1.4.0.min.css" />
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.10.4.custom.min.css" />
+
+<style>
+label.error {
+        color: red;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 1.4;
+        margin-top: 0.5em;
+        width: 100%;
+        float: none;
+}
+
+@media screen and (orientation: portrait){
+        label.error { margin-left: 0; display: block; }
+}
+
+@media screen and (orientation: landscape){
+        label.error { display: inline-block; margin-left: 22%; }
+}
+
+em { color: red; font-weight: bold; padding-right: .25em; }
+</style>
+
+
+</head>
+
+<body>
+
+<!-- ========== Page for STEP 1 ========== ========== ========== -->
+
+<!-- ========== Page for STEP 2 ========== ========== ========== -->
+<div data-role="page" id="step2">
+	<div data-role="header" data-position="fixed">
+		<!-- <a href="#step1" data-icon="home" data-theme="a">Home</a> -->
+		<h1>Game Interface and Performance (Step2/3)</h1>
+	</div>
+	<div role="main" class="ui-content">
+		<div class="ui-bar ui-bar-a">
+			<p>Tutorial</p>
+		</div>	
+		<div class="ui-body ui-body-a">
+			<p>
+				The following game is not configured for mobile devices.<br>
+				Please disable your browser's pop-up blocker for this page.<br>
+				Please watch the video carefully for detailed instructions.
+			</p>
+			<strong>Instructions</strong>
+			
+			<ol>
+				<li>Letters must be touching vertical, horizontal, or diagonal.</li>
+				<li>A letter cannot be used two times or more.</li>
+				<li>You cannot skip letters.</li>
+				<li>Words can go in any direction.</li>
+				<li>Find as many words as you can.</li>
+				<li>There is no time limit. You can stop anytime.</li>
+			</ol>
+		
+			<iframe id="player" width="448" height="252" src="//www.youtube.com/embed/bJZ8Ofj9Jtc?rel=0" frameborder="0" allowfullscreen></iframe>
+		</div>
+		<a href="#step4" id="step2ContinueBtn" class="ui-btn ui-corner-all ui-shadow ui-icon-arrow-r ui-btn-icon-right ui-btn-b">Continue</a>
+	</div>
+</div>
+
+<!-- ========== Page for STEP 3 ========== ========== ========== -->
+
+<!-- ========== Page for STEP 4 ========== ========== ========== -->
+<div data-role="page" id="step4">
+	<div data-role="header" data-position="fixed">
+		<!-- <a href="#step1" data-icon="home" data-theme="a">Home</a> -->
+		<h1>Game Interface and Performance (Step3/3)</h1>
+	</div>
+	<div role="main" class="ui-content">
+		<p><span id="prevGoal1"></span><br><span id="prevGoal2"></span></p>
+		<!-- <p><small>This board contains 1000-1500 words<br>There is no time limit. You can stop anytime.
+		</small></p> -->
+
+		<div class="content">
+			<div id="alert"><p></p></div>
+			<div class="container">
+				<div id="instructions">
+					<p>Click any letter to start!</p>
+					<img src="data/score.png"/ style="width:45%">
+				</div>
+				<div id="board">
+					<div class="row">
+						<div id="0" class="cell">S</div>
+						<div id="1" class="cell">E</div>
+						<div id="2" class="cell">R</div>
+						<div id="3" class="cell">S</div>
+					</div>
+					<div class="row">
+						<div id="4" class="cell">P</div>
+						<div id="5" class="cell">A</div>
+						<div id="6" class="cell">T</div>
+						<div id="7" class="cell">G</div>
+					</div>
+					<div class="row">
+						<div id="8" class="cell">L</div>
+						<div id="9" class="cell">I</div>
+						<div id="10" class="cell">N</div>
+						<div id="11" class="cell">E</div>
+					</div>
+					<div class="row">
+						<div id="12" class="cell">S</div>
+						<div id="13" class="cell">E</div>
+						<div id="14" class="cell">R</div>
+						<div id="15" class="cell">S</div>
+					</div>
+				</div>
+				<div id="controls">
+					<div class="fourth">
+						<div id="score"><span>0</span>&nbsp;points</div>
+					</div>
+					<div class="half">
+						<div id="letters"></div>
+					</div>
+					<div class="fourth">
+						<div id="try"><a class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-mini">Add</a></div>
+					</div>
+				</div>
+				<div id="result"><span>My words:&nbsp;</span><span id="words"></span></div>
+			</div>
+		<a id="step4ContinueBtn" class="ui-btn ui-corner-all ui-shadow ui-icon-arrow-r ui-btn-icon-right ui-btn-b">Finish</a>	
+		</div>
+	</div>
+	
+	<!-- === popup window === -->
+	<!-- <div data-role="popup" id="step4InitPopup0" data-overlay-theme="a" data-dismissible="false" style="min-width:400px;" class="ui-corner-all">
+		<div data-role="header" data-theme="a" class="ui-corner-top">
+			<h1>Play Again</h1>
+		</div>
+		<div role="main" class="ui-corner-bottom ui-content">
+			<label for="goal1">Please play more than once!</label>
+			<button id="step4InitStartBtn0" data-theme="b">Play Again</button>
+		</div>
+	</div> -->
+
+	<div data-role="popup" id="step4InitPopup1" data-overlay-theme="a" data-dismissible="false" style="min-width:400px;" class="ui-corner-all">
+		<div data-role="header" data-theme="a" class="ui-corner-top">
+			<h1>New Goal</h1>
+		</div>
+		<div role="main" class="ui-corner-bottom ui-content">
+			<label for="goal1">Try to play until you reach <span id="systemGoal1_1">0</span> points!</label>
+
+			<button id="step4InitStartBtn1" data-theme="b">Play</button>
+		</div>
+	</div>
+	
+	<div data-role="popup" id="step4InitPopup2" data-overlay-theme="a" data-dismissible="false" style="min-width:400px;" class="ui-corner-all">
+		<div data-role="header" data-theme="a" class="ui-corner-top">
+			<h1>New Goals</h1>
+		</div>
+		<div role="main" class="ui-corner-bottom ui-content">
+			<label id="sgLabel2_2">Try to play until you reach <span id="systemGoal2_2">0</span> points.</label>
+			<label id="sgLabel2_1">Or, if that's too challenging, try for <span id="systemGoal2_1">0</span> points!</label>
+			<button id="step4InitStartBtn2" data-theme="b">Play</button>
+		</div>
+	</div>
+
+	<div data-role="popup" id="step4InitPopup3" data-overlay-theme="a" data-dismissible="false" style="min-width:400px;" class="ui-corner-all">
+		<div data-role="header" data-theme="a" class="ui-corner-top">
+			<h1>Set a Goal</h1>
+		</div>
+		<div role="main" class="ui-corner-bottom ui-content">
+			<form id="step4InitPopup3Form">
+					<label>This board contains around 1000 words.</label>
+					<label>Longer words make you more points than shorter words. eg. "EAT" = 1 points, while "EATERS" = 3 points.</label> 
+					<label>
+						<img src="data/score.png" style="width:45%"/>
+					</label>
+
+			   		<label for="goal1_1" id="labelGoal1_1">My goal is to play until I reach</label>
+			   		<div class ="ui-grid-a" id="goalInput">
+				    	<div class="ui-block-a">
+				    		<input type="text" name="goal1_1" id="goal1_1" value="" data-mini="true" class="required"/>
+				    	</div>
+				    	<div class="ui-block-b" style="height:40px;line-height:40px">
+				    		<label style="margin-left:10px">points.</label>
+				    	</div>
+				    </div>
+			    <input data-role="submit" type="submit" data-theme="b" value="Play" />
+			</form>
+		</div>
+	</div>
+
+	<div data-role="popup" id="step4InitPopup4" data-overlay-theme="a" data-dismissible="false" style="min-width:400px;" class="ui-corner-all">
+		<div data-role="header" data-theme="a" class="ui-corner-top">
+			<h1>Set Goals</h1>
+		</div>
+		<div role="main" class="ui-corner-bottom ui-content">
+			<form id="step4InitPopup4Form">
+				<label>This board contains around 1000 words.</label>
+				<label>Longer words make you more points than shorter words. eg. "EAT" = 1 points, while "EATERS" = 3 points.</label> 
+					<label>
+						<img src="data/score.png" style="width:45%"/>
+					</label>
+			    <label for="goal2_2" id="labelGoal2_2">My goal is to play until I score </label>
+			    <div class ="ui-grid-a" id="goalInput1">
+			    	<div class="ui-block-a">
+		    			<input type="text" name="goal2_2" id="goal2_2" value="" data-mini="true" class="required"/>
+		    		</div>
+		    		<div class="ui-block-b" style="height:40px;line-height:40px">
+			    		<label style="margin-left:10px">points.</label>
+			    	</div>
+				</div>
+			    <label for="goal2_1" id="labelGoal2_1">If that is too challenging, I want to score at least </label>
+			    <div class ="ui-grid-a" id="goalInput2">
+			    	<div class="ui-block-a">
+			    		<input type="text" name="goal2_1" id="goal2_1" value="" data-mini="true" class="required myGreaterThan"/>
+			    	</div>
+		    		<div class="ui-block-b" style="height:40px;line-height:40px">
+			    		<label style="margin-left:10px">points.</label>
+			    	</div>
+				</div>
+			    <input data-role="submit" type="submit" data-theme="b" value="Play" />
+			</form>
+		</div>
+	</div>
+
+	<div data-role="popup" id="step4ResultPopup" data-overlay-theme="a" data-dismissible="false" style="min-width:400px" class="ui-corner-all">
+		<div data-role="header" data-theme="a" class="ui-corner-top">
+			<h1>Game Over</h1>
+		</div>
+		<div role="main" class="ui-corner-bottom ui-content">
+			<p>Game over!</p>
+			<p><span id="step4Result"></span></p>
+				<!-- <div class="ui-block-b"> -->
+	    			<a href="#step5" class="ui-btn ui-corner-all ui-shadow ui-btn-b">Done</a>
+				<!-- </div> -->
+		</div>
+	</div>
+</div>
+
+<!-- ========== Page for STEP 5 ========== ========== ========== -->
+<!-- <div data-role="page" id="step5">
+	<div data-role="header" data-position="fixed">
+		<h1>Game Interface and Performance (Step4/6)</h1>
+	</div>
+	<div role="main" class="ui-content">
+	<form id="step5Form">
+		<label for="age">My age is:</label>
+		<input type="text" name="age" id="age" value="" data-mini="true" class="required" />
+
+		<fieldset data-role="controlgroup">
+	        <legend>I identify my gender as:</legend>
+	        <input type="radio" name="radioGender" id="radioGenderMale" value="male" class="required">
+	        <label for="radioGenderMale">Male</label>
+	        <input type="radio" name="radioGender" id="radioGenderFemale" value="female">
+	        <label for="radioGenderFemale">Female</label>
+	        <input type="radio" name="radioGender" id="radioGenderOther" value="other">
+	        <label for="radioGenderOther">Other</label>
+   		 </fieldset>
+   		 <label for="radioGender" class="error" style="display:none;">Please select your gender.</label>
+   		 <p>
+	   		 <fieldset data-role="controlgroup" data-type="horizontal">
+				        <legend>How do you like the game?</legend>
+				        <legend><small>1: I don't like it at all</small></legend>
+				        <legend><small>10: I like it very much</small></legend>
+
+				        <input type="radio" name="radiolike" id="radiolike_1" value="1" class="required">
+				        <label for="radiolike_1">1</label>
+				        <input type="radio" name="radiolike" id="radiolike_2" value="2">
+				        <label for="radiolike_2">2</label>
+				        <input type="radio" name="radiolike" id="radiolike_3" value="3">
+				        <label for="radiolike_3">3</label>
+				        <input type="radio" name="radiolike" id="radiolike_4" value="4">
+				        <label for="radiolike_4">4</label>
+				        <input type="radio" name="radiolike" id="radiolike_5" value="5">
+				        <label for="radiolike_5">5</label>
+				        <input type="radio" name="radiolike" id="radiolike_6" value="6">
+				        <label for="radiolike_6">6</label>
+				        <input type="radio" name="radiolike" id="radiolike_7" value="7">
+				        <label for="radiolike_7">7</label>
+				        <input type="radio" name="radiolike" id="radiolike_8" value="8">
+				        <label for="radiolike_8">8</label>
+				        <input type="radio" name="radiolike" id="radiolike_9" value="9">
+				        <label for="radiolike_9">9</label>
+				        <input type="radio" name="radiolike" id="radiolike_10" value="10">
+				        <label for="radiolike_10">10</label>
+			</fieldset>
+			<label for="radiolike" class="error" style="display:none;">This field is required.</label>
+		</p>
+		<p>
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				        <legend>How do you feel about your performance in the game?</legend>
+				        <legend><small>1: Very poor</small></legend>
+				        <legend><small>10: Very well</small></legend>
+
+				        <input type="radio" name="radioperform" id="radioperform_1" value="1" class="required">
+				        <label for="radioperform_1">1</label>
+				        <input type="radio" name="radioperform" id="radioperform_2" value="2">
+				        <label for="radioperform_2">2</label>
+				        <input type="radio" name="radioperform" id="radioperform_3" value="3">
+				        <label for="radioperform_3">3</label>
+				        <input type="radio" name="radioperform" id="radioperform_4" value="4">
+				        <label for="radioperform_4">4</label>
+				        <input type="radio" name="radioperform" id="radioperform_5" value="5">
+				        <label for="radioperform_5">5</label>
+				        <input type="radio" name="radioperform" id="radioperform_6" value="6">
+				        <label for="radioperform_6">6</label>
+				        <input type="radio" name="radioperform" id="radioperform_7" value="7">
+				        <label for="radioperform_7">7</label>
+				        <input type="radio" name="radioperform" id="radioperform_8" value="8">
+				        <label for="radioperform_8">8</label>
+				        <input type="radio" name="radioperform" id="radioperform_9" value="9">
+				        <label for="radioperform_9">9</label>
+				        <input type="radio" name="radioperform" id="radioperform_10" value="10">
+				        <label for="radioperform_10">10</label>
+			</fieldset>
+			<label for="radioperform" class="error" style="display:none;">This field is required.</label>
+		</p>
+		<p>
+			<fieldset data-role="controlgroup" data-type="horizontal">
+				        <legend>How much effort do you put into playing the game?</legend>
+				        <legend><small>1: Not at all</small></legend>
+				        <legend><small>10: Very hard</small></legend>
+
+				        <input type="radio" name="radioeffort" id="radioeffort_1" value="1" class="required">
+				        <label for="radioeffort_1">1</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_2" value="2">
+				        <label for="radioeffort_2">2</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_3" value="3">
+				        <label for="radioeffort_3">3</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_4" value="4">
+				        <label for="radioeffort_4">4</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_5" value="5">
+				        <label for="radioeffort_5">5</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_6" value="6">
+				        <label for="radioeffort_6">6</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_7" value="7">
+				        <label for="radioeffort_7">7</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_8" value="8">
+				        <label for="radioeffort_8">8</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_9" value="9">
+				        <label for="radioeffort_9">9</label>
+				        <input type="radio" name="radioeffort" id="radioeffort_10" value="10">
+				        <label for="radioeffort_10">10</label>
+			</fieldset>	
+			<label for="radioeffort" class="error" style="display:none;">This field is required.</label>
+		</p>
+		<p>
+			<fieldset data-role="controlgroup">
+		        <legend>Are you a native English speaker?</legend>
+		        <input type="radio" name="radioNES" id="radioNESYes" value="yes" class="required">
+		        <label for="radioNESYes">Yes</label>
+		        <input type="radio" name="radioNES" id="radioNESNo" value="no">
+		        <label for="radioNESNo">No</label>
+   		 	</fieldset>
+   		 	<label for="radioNES" class="error" style="display:none;">Please select your gender.</label>
+		</p>
+		<input data-role="submit" type="submit" data-theme="b" value="Submit" />
+	</form>
+	</div>
+</div> -->
+<!-- ========== Page for STEP 6 ========== ========== ========== -->
+<!-- <div data-role="page" id="step6">
+	<div data-role="header" data-position="fixed">
+		<h1>Game Interface and Performance (Step5/6)</h1>
+	</div>
+	<div role="main" class="ui-content">
+	<form id="step6Form">
+
+		<p>Here are a number of personality traits that may or may not apply to you.  Please select a number next to each statement to indicate the extent to which you agree or disagree with that statement. You should rate the extent to which the pair of traits applies to you, even if one characteristic applies more strongly than the other.</p>
+
+		<small>
+			1 = Disagree strongly<br>
+			2 = Disagree moderately<br>
+			3 = Disagree a little<br>
+			4 = Neither agree nor disagree<br>
+			5 = Agree a little<br>
+			6 = Agree moderately<br>
+			7 = Agree strongly
+		</small>
+
+		<p>I see myself as:</p>
+		<ol>
+			<li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Extraverted, enthusiastic.</legend>
+			        <input type="radio" name="radioIPip1" id="radioIPip1_1" value="1" class="required">
+			        <label for="radioIPip1_1">1</label>
+			        <input type="radio" name="radioIPip1" id="radioIPip1_2" value="2">
+			        <label for="radioIPip1_2">2</label>
+			        <input type="radio" name="radioIPip1" id="radioIPip1_3" value="3">
+			        <label for="radioIPip1_3">3</label>
+			        <input type="radio" name="radioIPip1" id="radioIPip1_4" value="4">
+			        <label for="radioIPip1_4">4</label>
+			        <input type="radio" name="radioIPip1" id="radioIPip1_5" value="5">
+			        <label for="radioIPip1_5">5</label>
+			        <input type="radio" name="radioIPip1" id="radioIPip1_6" value="6">
+			        <label for="radioIPip1_6">6</label>
+			        <input type="radio" name="radioIPip1" id="radioIPip1_7" value="7">
+			        <label for="radioIPip1_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip1" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		    <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Critical, quarrelsome.</legend>
+			        <input type="radio" name="radioIPip2" id="radioIPip2_1" value="1" class="required">
+			        <label for="radioIPip2_1">1</label>
+			        <input type="radio" name="radioIPip2" id="radioIPip2_2" value="2">
+			        <label for="radioIPip2_2">2</label>
+			        <input type="radio" name="radioIPip2" id="radioIPip2_3" value="3">
+			        <label for="radioIPip2_3">3</label>
+			        <input type="radio" name="radioIPip2" id="radioIPip2_4" value="4">
+			        <label for="radioIPip2_4">4</label>
+			        <input type="radio" name="radioIPip2" id="radioIPip2_5" value="5">
+			        <label for="radioIPip2_5">5</label>
+			        <input type="radio" name="radioIPip2" id="radioIPip2_6" value="6">
+			        <label for="radioIPip2_6">6</label>
+			        <input type="radio" name="radioIPip2" id="radioIPip2_7" value="7">
+			        <label for="radioIPip2_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip2" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		    <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Dependable, self-disciplined.</legend>
+			        <input type="radio" name="radioIPip3" id="radioIPip3_1" value="1" class="required">
+			        <label for="radioIPip3_1">1</label>
+			        <input type="radio" name="radioIPip3" id="radioIPip3_2" value="2">
+			        <label for="radioIPip3_2">2</label>
+			        <input type="radio" name="radioIPip3" id="radioIPip3_3" value="3">
+			        <label for="radioIPip3_3">3</label>
+			        <input type="radio" name="radioIPip3" id="radioIPip3_4" value="4">
+			        <label for="radioIPip3_4">4</label>
+			        <input type="radio" name="radioIPip3" id="radioIPip3_5" value="5">
+			        <label for="radioIPip3_5">5</label>
+			        <input type="radio" name="radioIPip3" id="radioIPip3_6" value="6">
+			        <label for="radioIPip3_6">6</label>
+			        <input type="radio" name="radioIPip3" id="radioIPip3_7" value="7">
+			        <label for="radioIPip3_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip3" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		    <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Anxious, easily upset.</legend>
+			        <input type="radio" name="radioIPip4" id="radioIPip4_1" value="1" class="required">
+			        <label for="radioIPip4_1">1</label>
+			        <input type="radio" name="radioIPip4" id="radioIPip4_2" value="2">
+			        <label for="radioIPip4_2">2</label>
+			        <input type="radio" name="radioIPip4" id="radioIPip4_3" value="3">
+			        <label for="radioIPip4_3">3</label>
+			        <input type="radio" name="radioIPip4" id="radioIPip4_4" value="4">
+			        <label for="radioIPip4_4">4</label>
+			        <input type="radio" name="radioIPip4" id="radioIPip4_5" value="5">
+			        <label for="radioIPip4_5">5</label>
+			        <input type="radio" name="radioIPip4" id="radioIPip4_6" value="6">
+			        <label for="radioIPip4_6">6</label>
+			        <input type="radio" name="radioIPip4" id="radioIPip4_7" value="7">
+			        <label for="radioIPip4_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip4" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		    <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Open to new experiences, complex.</legend>
+			        <input type="radio" name="radioIPip5" id="radioIPip5_1" value="1" class="required">
+			        <label for="radioIPip5_1">1</label>
+			        <input type="radio" name="radioIPip5" id="radioIPip5_2" value="2">
+			        <label for="radioIPip5_2">2</label>
+			        <input type="radio" name="radioIPip5" id="radioIPip5_3" value="3">
+			        <label for="radioIPip5_3">3</label>
+			        <input type="radio" name="radioIPip5" id="radioIPip5_4" value="4">
+			        <label for="radioIPip5_4">4</label>
+			        <input type="radio" name="radioIPip5" id="radioIPip5_5" value="5">
+			        <label for="radioIPip5_5">5</label>
+			        <input type="radio" name="radioIPip5" id="radioIPip5_6" value="6">
+			        <label for="radioIPip5_6">6</label>
+			        <input type="radio" name="radioIPip5" id="radioIPip5_7" value="7">
+			        <label for="radioIPip5_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip5" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		    <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Reserved, quiet.</legend>
+			        <input type="radio" name="radioIPip6" id="radioIPip6_1" value="1" class="required">
+			        <label for="radioIPip6_1">1</label>
+			        <input type="radio" name="radioIPip6" id="radioIPip6_2" value="2">
+			        <label for="radioIPip6_2">2</label>
+			        <input type="radio" name="radioIPip6" id="radioIPip6_3" value="3">
+			        <label for="radioIPip6_3">3</label>
+			        <input type="radio" name="radioIPip6" id="radioIPip6_4" value="4">
+			        <label for="radioIPip6_4">4</label>
+			        <input type="radio" name="radioIPip6" id="radioIPip6_5" value="5">
+			        <label for="radioIPip6_5">5</label>
+			        <input type="radio" name="radioIPip6" id="radioIPip6_6" value="6">
+			        <label for="radioIPip6_6">6</label>
+			        <input type="radio" name="radioIPip6" id="radioIPip6_7" value="7">
+			        <label for="radioIPip6_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip6" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		     <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Sympathetic, warm.</legend>
+			        <input type="radio" name="radioIPip7" id="radioIPip7_1" value="1" class="required">
+			        <label for="radioIPip7_1">1</label>
+			        <input type="radio" name="radioIPip7" id="radioIPip7_2" value="2">
+			        <label for="radioIPip7_2">2</label>
+			        <input type="radio" name="radioIPip7" id="radioIPip7_3" value="3">
+			        <label for="radioIPip7_3">3</label>
+			        <input type="radio" name="radioIPip7" id="radioIPip7_4" value="4">
+			        <label for="radioIPip7_4">4</label>
+			        <input type="radio" name="radioIPip7" id="radioIPip7_5" value="5">
+			        <label for="radioIPip7_5">5</label>
+			        <input type="radio" name="radioIPip7" id="radioIPip7_6" value="6">
+			        <label for="radioIPip7_6">6</label>
+			        <input type="radio" name="radioIPip7" id="radioIPip7_7" value="7">
+			        <label for="radioIPip7_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip7" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		    <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Disorganized, careless.</legend>
+			        <input type="radio" name="radioIPip8" id="radioIPip8_1" value="1" class="required">
+			        <label for="radioIPip8_1">1</label>
+			        <input type="radio" name="radioIPip8" id="radioIPip8_2" value="2">
+			        <label for="radioIPip8_2">2</label>
+			        <input type="radio" name="radioIPip8" id="radioIPip8_3" value="3">
+			        <label for="radioIPip8_3">3</label>
+			        <input type="radio" name="radioIPip8" id="radioIPip8_4" value="4">
+			        <label for="radioIPip8_4">4</label>
+			        <input type="radio" name="radioIPip8" id="radioIPip8_5" value="5">
+			        <label for="radioIPip8_5">5</label>
+			        <input type="radio" name="radioIPip8" id="radioIPip8_6" value="6">
+			        <label for="radioIPip8_6">6</label>
+			        <input type="radio" name="radioIPip8" id="radioIPip8_7" value="7">
+			        <label for="radioIPip8_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip8" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		    <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Calm, emotionally stable.</legend>
+			        <input type="radio" name="radioIPip9" id="radioIPip9_1" value="1" class="required">
+			        <label for="radioIPip9_1">1</label>
+			        <input type="radio" name="radioIPip9" id="radioIPip9_2" value="2">
+			        <label for="radioIPip9_2">2</label>
+			        <input type="radio" name="radioIPip9" id="radioIPip9_3" value="3">
+			        <label for="radioIPip9_3">3</label>
+			        <input type="radio" name="radioIPip9" id="radioIPip9_4" value="4">
+			        <label for="radioIPip9_4">4</label>
+			        <input type="radio" name="radioIPip9" id="radioIPip9_5" value="5">
+			        <label for="radioIPip9_5">5</label>
+			        <input type="radio" name="radioIPip9" id="radioIPip9_6" value="6">
+			        <label for="radioIPip9_6">6</label>
+			        <input type="radio" name="radioIPip9" id="radioIPip9_7" value="7">
+			        <label for="radioIPip9_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip9" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		    <li>
+				<fieldset data-role="controlgroup" data-type="horizontal">
+			        <legend>Conventional, uncreative.</legend>
+			        <input type="radio" name="radioIPip10" id="radioIPip10_1" value="1" class="required">
+			        <label for="radioIPip10_1">1</label>
+			        <input type="radio" name="radioIPip10" id="radioIPip10_2" value="2">
+			        <label for="radioIPip10_2">2</label>
+			        <input type="radio" name="radioIPip10" id="radioIPip10_3" value="3">
+			        <label for="radioIPip10_3">3</label>
+			        <input type="radio" name="radioIPip10" id="radioIPip10_4" value="4">
+			        <label for="radioIPip10_4">4</label>
+			        <input type="radio" name="radioIPip10" id="radioIPip10_5" value="5">
+			        <label for="radioIPip10_5">5</label>
+			        <input type="radio" name="radioIPip10" id="radioIPip10_6" value="6">
+			        <label for="radioIPip10_6">6</label>
+			        <input type="radio" name="radioIPip10" id="radioIPip10_7" value="7">
+			        <label for="radioIPip10_7">7</label>
+		    	</fieldset>
+		    	<label for="radioIPip10" class="error" style="display:none;">This field is required.</label>
+		    </li>
+		</ol>
+		<input data-role="submit" type="submit" data-theme="b" value="Submit" />
+	</form>
+	</div>
+</div> -->
+
+
+
+<script src="js/jquery-1.10.2.min.js"></script>
+<script src="js/jquery.mobile-1.4.0.min.js"></script>
+<script src="js/boggle.js" type="text/javascript"></script>
+<script src="js/jquery.cookie.js" type="text/javascript"></script>
+<script src="js/jquery.validate.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui-1.10.4.custom.min.js" type="text/javascript"></script>
+<script src="js/datastore.js" type="text/javascript"></script>
+<script src="js/boggle-application.js" type="text/javascript"></script>
+
+</body>
+</html>
