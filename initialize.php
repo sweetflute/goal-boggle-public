@@ -10,7 +10,7 @@ $device = $_POST['device'];
 setcookie("userID", $userID, time()+3600);
 
 
-$con = mysqli_connect('cfchung.vergil.u.washington.edu','root','qazpoils#','BOGGLE', 50001);
+$con = mysqli_connect();
 if (!$con)
   {
   die('Could not connect: ' . mysqli_error($con));
