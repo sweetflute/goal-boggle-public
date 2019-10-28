@@ -7,7 +7,7 @@ $score = $_POST['score'];
 echo "gameID=".$gameID;
 
 
-$con = mysqli_connect('cfchung.vergil.u.washington.edu','root','qazpoils#','BOGGLE', 50001);
+$con = mysqli_connect();
 if (!$con)
   {
   die('Could not connect: ' . mysqli_error($con));
